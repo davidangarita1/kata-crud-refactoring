@@ -1,6 +1,6 @@
 import StoreProvider from './StoreProvider';
-import Form from './Todo/TodoForm';
-import List from './Todo/TodoList';
+import Form from './components/Todo/TodoForm';
+import List from './components/Todo/TodoList';
 
 function App() {
   return <StoreProvider>
