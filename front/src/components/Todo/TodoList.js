@@ -2,9 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import Store from '../common/Store';
 import HOST_API from '../common/Connection';
 
-const List = () => {
+const TodoList = (TaskListId) => {
 	const { dispatch, state: { todo } } = useContext(Store);
-	const currentList = todo.todoList;
+	const currentList = todo.todoList.filter(todo => {
+		return todo.idList === TaskListId.TaskListId;
+	});
 
 	useEffect(() => {
 		fetch(HOST_API + "/todolist")
@@ -47,8 +49,8 @@ const List = () => {
 				dispatch({ type: "update-item", item: todo });
 			});
 	}
-	
-	return <div className="todoList">
+
+	return <div className="list">
 		<table>
 			<thead>
 				<tr>
@@ -68,7 +70,7 @@ const List = () => {
 								type="checkbox"
 								defaultChecked={item.completed}
 								onChange={(event) => onEditComplete(event, item)}
-								className="checkComplete"
+								className="CheckComplete"
 							/>
 						</td>
 						<td><button onClick={() => onEdit(item)}>Editar</button></td>
@@ -78,7 +80,6 @@ const List = () => {
 			</tbody>
 		</table>
 	</div>
-
 }
 
-export default List;
+export default TodoList;

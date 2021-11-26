@@ -33,22 +33,26 @@ const TaskForm = () => {
 					formRef.current.reset();
 				});
 		} else {
-			document.querySelector(".alert").innerHTML = "Solo utilice caracteres Alfanuméricos";
+			document.querySelector(".alertTask").innerHTML = "Solo utilice caracteres Alfanuméricos";
 		}
 	}
 
-	return <form className="formList" ref={formRef}>
-		<input
-			type="text"
-			name="name"
-			className="taskForm"
-			placeholder="Escriba el nombre de la lista"
-			defaultValue={item.name}
-			onChange={(event) => {
-				setState({ ...state, name: event.target.value })
-			}} />
-		<button onClick={onAdd} disabled={!state.name}>Nueva Lista</button>
-	</form>
+	return <div>
+		<form className="formList" ref={formRef}>
+			<input
+				type="text"
+				name="name"
+				className="taskForm"
+				placeholder="Escriba el nombre de la lista"
+				defaultValue={item.name}
+				onChange={(event) => {
+					setState({ ...state, name: event.target.value })
+				}} />
+			<button onClick={onAdd} disabled={!state.name}>Nueva Lista</button>
+			<div className="alertTask"></div>
+		</form>
+	</div>
+
 };
 
 export default TaskForm;

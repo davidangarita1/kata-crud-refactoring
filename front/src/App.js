@@ -1,13 +1,16 @@
-import StoreProvider from './StoreProvider';
-import Form from './components/Todo/TodoForm';
-import List from './components/Todo/TodoList';
+import { StoreProvider } from "./components/common/Store";
+import TaskList from "./components/Task/TaskList";
+import TaskForm from "./components/Task/TaskForm";
 
 function App() {
-  return <StoreProvider>
-    <h3>To-Do List</h3>
-    <Form />
-    <List />
-  </StoreProvider>
+  return (
+    <div className="container">
+				<StoreProvider>
+          <TaskForm />
+					<TaskList />
+				</StoreProvider>
+    </div>
+  );
 }
 
 export default App;

@@ -2,11 +2,12 @@ import React, { useRef, useState, useContext } from 'react';
 import Store from '../common/Store';
 import HOST_API from '../common/Connection';
 
-const Form = () => {
+const TodoForm = (TaskListId) => {
 	const formRef = useRef(null);
 	const { dispatch, state: { todo } } = useContext(Store);
 	const item = todo.item;
 	const [state, setState] = useState(item);
+	const vsExprReg = /[A-Za-z0-9_]/;
 
 	const onAdd = (event) => {
 		event.preventDefault();
@@ -14,13 +15,13 @@ const Form = () => {
 		const request = {
 			name: state.name,
 			id: null,
-			idList: 1,  //Default Temporal
+			idList: TaskListId.TaskListId,
 			completed: false
 		};
 
-		const vsExprReg = /[A-Za-z0-9_]/;
+		
 		if (vsExprReg.test(request.name)) {
-			document.querySelector(".alert").innerHTML = "";
+			document.querySelector(".alertTodo").innerHTML = "";
 			fetch(HOST_API + "/todo", {
 				method: "POST",
 				body: JSON.stringify(request),
@@ -64,7 +65,7 @@ const Form = () => {
 			});
 	}
 
-	return <form ref={formRef} className="bar">
+	return <form ref={formRef} className="barTodo">
 		<input
 			type="text"
 			name="name"
@@ -76,6 +77,7 @@ const Form = () => {
 		{!item.id && <button onClick={onAdd} disabled={!state.name}>Agregar</button>}
 		<div className="alertTodo"></div>
 	</form>
+
 }
 
-export default Form;
+export default TodoForm;
