@@ -1,11 +1,6 @@
 import React, { useContext, useReducer, useEffect, useRef, useState, createContext } from 'react';
 
 const HOST_API = "http://localhost:8080/api";
-const initialState = {
-  todo: { list: [], item: {} }
-};
-const Store = createContext(initialState)
-
 
 const Form = () => {
   const formRef = useRef(null);
@@ -21,7 +16,6 @@ const Form = () => {
       id: null,
       completed: false
     };
-
 
     fetch(HOST_API + "/todo", {
       method: "POST",
@@ -149,8 +143,6 @@ const List = () => {
   </div>
 }
 
-
-
 function reducer(state, action) {
   switch (action.type) {
     case 'update-item':
@@ -182,19 +174,10 @@ function reducer(state, action) {
     case 'add-item':
       const todoUp = state.todo.list;
       todoUp.push(action.item);
-      return { ...state, todo: {list: todoUp, item: {}} }
+      return { ...state, todo: { list: todoUp, item: {} } }
     default:
       return state;
   }
-}
-
-const StoreProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  return <Store.Provider value={{ state, dispatch }}>
-    {children}
-  </Store.Provider>
-
 }
 
 function App() {
