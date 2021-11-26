@@ -1,7 +1,5 @@
 import React, { useContext, useReducer, useEffect, useRef, useState, createContext } from 'react';
 
-const HOST_API = "http://localhost:8080/api";
-
 const Form = () => {
   const formRef = useRef(null);
   const { dispatch, state: { todo } } = useContext(Store);
