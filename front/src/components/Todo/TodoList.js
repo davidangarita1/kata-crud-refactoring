@@ -51,20 +51,18 @@ const TodoList = (TaskListId) => {
 	}
 
 	return <div className="list">
-		<table>
+		<table className="table text-center">
 			<thead>
 				<tr>
+					<td></td>
 					<td>ID</td>
 					<td>Nombre</td>
-					<td>¿Completado?</td>
 					<td colSpan="2">Opciones</td>
 				</tr>
 			</thead>
 			<tbody>
 				{currentList.map((item) => {
 					return <tr key={item.id}>
-						<td>{item.id}</td>
-						<td>{item.name}</td>
 						<td>
 							<input
 								type="checkbox"
@@ -73,8 +71,10 @@ const TodoList = (TaskListId) => {
 								className="CheckComplete"
 							/>
 						</td>
-						<td><button onClick={() => onEdit(item)}>Editar</button></td>
-						<td><button onClick={() => onDelete(item.id)}>Eliminar</button></td>
+						<td>{item.id}</td>
+						<td>{item.name}</td>
+						<td><button type="button" className="btn btn-secondary" onClick={() => onEdit(item)}>Editar</button></td>
+						<td><button type="button" className="btn btn-danger" onClick={() => onDelete(item.id)}>Eliminar</button></td>
 					</tr>
 				})}
 			</tbody>

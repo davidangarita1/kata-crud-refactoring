@@ -18,7 +18,7 @@ const TaskForm = () => {
 		};
 
 		if (vsExprReg.test(request.name)) {
-			document.querySelector(".alert").innerHTML = "";
+			document.querySelector(".alertTask").innerHTML = "";
 			fetch(HOST_API + "/task", {
 				method: "POST",
 				body: JSON.stringify(request),
@@ -37,20 +37,30 @@ const TaskForm = () => {
 		}
 	}
 
-	return <div>
-		<form className="formList" ref={formRef}>
-			<input
-				type="text"
-				name="name"
-				className="taskForm"
-				placeholder="Escriba el nombre de la lista"
-				defaultValue={item.name}
-				onChange={(event) => {
-					setState({ ...state, name: event.target.value })
-				}} />
-			<button onClick={onAdd} disabled={!state.name}>Nueva Lista</button>
-			<div className="alertTask"></div>
-		</form>
+	return <div className="row mb-3 mt-2">
+		<nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+			<div className="container-fluid">
+				<a className="navbar-brand" href="#">Sofka</a>
+				<div className="collapse navbar-collapse">
+					<form className="position-absolute top-50 start-50 translate-middle w-50" ref={formRef}>
+						<div className="input-group flex-nowrap">
+							<input
+								type="text"
+								name="name"
+								className="form-control me-2"
+								placeholder="Escriba aqui..."
+								defaultValue={item.name}
+								onChange={(event) => {
+									setState({ ...state, name: event.target.value })
+								}} />
+							<button className="btn btn-success" onClick={onAdd} disabled={!state.name}>Nueva Lista</button>
+						</div>
+
+						<div className="alertTask"></div>
+					</form>
+				</div>
+			</div>
+		</nav>
 	</div>
 
 };

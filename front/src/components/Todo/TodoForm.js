@@ -19,7 +19,7 @@ const TodoForm = (TaskListId) => {
 			completed: false
 		};
 
-		
+
 		if (vsExprReg.test(request.name)) {
 			document.querySelector(".alertTodo").innerHTML = "";
 			fetch(HOST_API + "/todo", {
@@ -50,31 +50,41 @@ const TodoForm = (TaskListId) => {
 			completed: item.isCompleted
 		};
 
-		fetch(HOST_API + "/todo", {
-			method: "PUT",
-			body: JSON.stringify(request),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(response => response.json())
-			.then((todo) => {
-				dispatch({ type: "update-item", item: todo });
-				setState({ name: "" });
-				formRef.current.reset();
-			});
+		if (vsExprReg.test(request.name)) {
+			document.querySelector(".alertTodo").innerHTML = "";
+			fetch(HOST_API + "/todo", {
+				method: "PUT",
+				body: JSON.stringify(request),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then(response => response.json())
+				.then((todo) => {
+					dispatch({ type: "update-item", item: todo });
+					setState({ name: "" });
+					formRef.current.reset();
+				});
+		} else {
+			document.querySelector(".alertTodo").innerHTML = "Solo utilice caracteres Alfanuméricos";
+		}
 	}
 
 	return <form ref={formRef} className="barTodo">
-		<input
-			type="text"
-			name="name"
-			defaultValue={item.name}
-			onChange={(event) => {
-				setState({ ...state, name: event.target.value })
-			}} />
-		{item.id && <button onClick={onEdit} disabled={!state.name}>Actualizar</button>}
-		{!item.id && <button onClick={onAdd} disabled={!state.name}>Agregar</button>}
+		<div className="input-group mb-3">
+			<input
+				type="text"
+				name="name"
+				defaultValue={item.name}
+				className="form-control"
+				placeholder="Escriba el nombre de la tarea"
+				onChange={(event) => {
+					setState({ ...state, name: event.target.value })
+				}} />
+			{item.id && <button className="btn btn-success" onClick={onEdit} disabled={!state.name}>Actualizar</button>}
+			{!item.id && <button className="btn btn-success" onClick={onAdd} disabled={!state.name}>Agregar</button>}
+		</div>
+
 		<div className="alertTodo"></div>
 	</form>
 

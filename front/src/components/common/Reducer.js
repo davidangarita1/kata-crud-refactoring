@@ -1,35 +1,47 @@
 function Reducer(state, action) {
 	switch (action.type) {
-		case 'update-item':
-			const todoUpItem = state.todo;
-			const listUpdateEdit = todoUpItem.list.map((item) => {
-				if (item.id === action.item.id) {
-					return action.item;
-				}
-				return item;
-			});
-			todoUpItem.list = listUpdateEdit;
-			todoUpItem.item = {};
-			return { ...state, todo: todoUpItem }
-		case 'delete-item':
-			const todoUpDelete = state.todo;
-			const listUpdate = todoUpDelete.list.filter((item) => {
+		case 'update-tasklist':
+			const taskUpdateList = state.task;
+			taskUpdateList.taskList = action.taskList;
+			return { ...state, task: taskUpdateList }
+		case 'add-task':
+			const newTaskList = state.task.taskList;
+			newTaskList.push(action.item);
+			return { ...state, task: { taskList: newTaskList, item: {} } }
+		case 'delete-task':
+			const taskDeleteItem = state.task;
+			const taskListUpdate = taskDeleteItem.taskList.filter((item) => {
 				return item.id !== action.id;
 			});
-			todoUpDelete.list = listUpdate;
-			return { ...state, todo: todoUpDelete }
+			taskDeleteItem.taskList = taskListUpdate;
+			return { ...state, task: taskDeleteItem }
+		case 'update-item':
+			const todoUpdateItem = state.todo;
+			const listUpdateEdit = todoUpdateItem.todoList.map((item) => {
+				return item.id === action.item.id ? action.item : item; // refactorizo
+			});
+			todoUpdateItem.todoList = listUpdateEdit;
+			todoUpdateItem.item = {};
+			return { ...state, todo: todoUpdateItem };
+		case 'delete-item':
+			const todoDeleteItem = state.todo;
+			const listUpdate = todoDeleteItem.todoList.filter((item) => {
+				return item.id !== action.id;
+			});
+			todoDeleteItem.todoList = listUpdate;
+			return { ...state, todo: todoDeleteItem }
 		case 'update-list':
-			const todoUpList = state.todo;
-			todoUpList.list = action.list;
-			return { ...state, todo: todoUpList }
+			const todoUpdateList = state.todo;
+			todoUpdateList.todoList = action.todoList;
+			return { ...state, todo: todoUpdateList }
 		case 'edit-item':
-			const todoUpEdit = state.todo;
-			todoUpEdit.item = action.item;
-			return { ...state, todo: todoUpEdit }
+			const todoEditItem = state.todo;
+			todoEditItem.item = action.item;
+			return { ...state, todo: todoEditItem }
 		case 'add-item':
-			const todoUp = state.todo.list;
-			todoUp.push(action.item);
-			return { ...state, todo: { list: todoUp, item: {} } }
+			const newList = state.todo.todoList;
+			newList.push(action.item);
+			return { ...state, todo: { todoList: newList, item: {} } }
 		default:
 			return state;
 	}

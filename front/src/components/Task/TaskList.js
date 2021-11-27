@@ -20,7 +20,7 @@ const TaskList = () => {
 
 	const onDeleteTask = (id) => {
 		currentTodo.forEach(item => {
-			if(item.idList === id) {
+			if (item.idList === id) {
 				fetch(HOST_API + "/" + item.id + "/todo", {
 					method: "DELETE"
 				}).then((todoList) => {
@@ -35,17 +35,36 @@ const TaskList = () => {
 		})
 	};
 
-	return <div>
+	return <div className="row main mt-5">
 		{currentList.map((item) => {
-			return <div key={item.id}>
-				<div className="wrapper">
-					<Banner />
-					<h2 className="title">{item.name}</h2>
-					<button className="btnTask" onClick={() => onDeleteTask(item.id)}>Eliminar</button>
-					<TodoForm TaskListId={item.id} />
-					<TodoList TaskListId={item.id} />
+			return <div className="col" key={item.id}>
+				<div className="card" >
+					<div className="card-header">
+						<div className="row text-center">
+							<div className="col-12 del">
+								<Banner />
+								<button
+									type="button"
+									className="btn btn-danger"
+									onClick={() => onDeleteTask(item.id)}
+								>X</button>
+							</div>
+						</div>
+						<div className="row text-center">
+							<div className="col-12">
+								<h3 className="title">{item.name}</h3>
+							</div>
+						</div>
+						<div className="row text-center">
+							<div className="col-12">
+								<TodoForm TaskListId={item.id} />
+							</div>
+						</div>
+					</div>
+					<div className="card-body">
+						<TodoList TaskListId={item.id} />
+					</div>
 				</div>
-
 			</div>
 		})}
 	</div>;
