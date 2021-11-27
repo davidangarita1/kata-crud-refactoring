@@ -40,7 +40,7 @@ const TaskForm = () => {
 	return <div className="row mb-3 mt-2">
 		<nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
 			<div className="container-fluid">
-				<a className="navbar-brand" href="#">Sofka</a>
+				<p className="navbar-brand">Sofka</p>
 				<div className="collapse navbar-collapse">
 					<form className="position-absolute top-50 start-50 translate-middle w-50" ref={formRef}>
 						<div className="input-group flex-nowrap">
